@@ -4,7 +4,6 @@ from typing import Tuple, Dict, List, Optional
 
 class Environment:
     def __init__(self,
-                 grid_size: Tuple[int,int],
                  row: int,
                  col: int,
                  start: Tuple[int,int],
@@ -13,7 +12,7 @@ class Environment:
                  action_space: Optional[List[str]] = None,
                  step_penalty: float = -0.01,
                  goal_reward: float = 10):
-        self.grid_size = grid_size(row, col)
+        self.grid_size = (row, col)
         self.start = start
         self.goal = goal
         self.obstacles = obstacles or []
