@@ -1,3 +1,4 @@
+from gymnasium.envs.toy_text.frozen_lake import generate_random_map
 import gymnasium as gym
 import numpy as np
 from typing import Dict, List, Tuple
@@ -6,7 +7,7 @@ def create_env(render_mode=None):
     """
     Create the environment.
     """
-    return gym.make("FrozenLake-v1", render_mode=render_mode)
+    return gym.make("FrozenLake-v1", render_mode=render_mode,desc=generate_random_map(size = 8))
 
 def explore_environment(env):
     """
@@ -118,15 +119,15 @@ def run_episode(
     print(f"Episodes: {episodes}, Learning Rate: {alpha}, Discount: {gamma}")
     print(f"Epsilon: {initial_epsilon} → {min_epsilon} (decay: {decay_rate})")
     print("-" * 60)
-
+    env = create_env(render_mode=None)
     for episode in range(episodes):
-        observation, info = env.reset(seed=episode)
+        observation, info = env.reset(seed=42)
         state = observation
 
         total_reward = 0
         steps = 0
         epsilon = adjust_epsilon(initial_epsilon, min_epsilon, decay_rate, episode)
-        for step in range(max_steps):
+        for steps in range(max_steps):
             action = epsilon_greedy_policy(q_table, state, epsilon, env)
 
             next_observation, reward, terminated, truncated, info = env.step(action)
