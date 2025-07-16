@@ -72,8 +72,13 @@ class FrozenLakeEnv:
         """
         future_q_value = (not terminated) * (self.discount_factor * np.max(self.q_values[next_obs]))
 
+<<<<<<< HEAD:Q_learning/q_learning_gymna.py
+        target = reward + self.discount_factor * future_q_value
+        
+=======
         # target = reward + self.discount_factor * future_q_value
         target = reward + future_q_value
+>>>>>>> a7b3edab59fcae207bb68958ee7a3b8565080dff:Reinforcement_learning/Q_learning/q_learning_gymna.py
         temporal_difference = target - self.q_values[obs][action]
 
         self.q_values[obs][action] = (
