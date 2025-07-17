@@ -38,7 +38,7 @@ class FrozenLakeEnv:
 
         self.training_error = []
 
-    def get_action(self, obs: Tuple[int, int, bool]) -> int:
+    def get_action(self, obs: int) -> int:
         """
         Choose an action based on the current state.
         Args:
@@ -98,7 +98,7 @@ class FrozenLakeEnv:
             map_desc,
             num_episodes: int,
             visual: bool = False,
-            delay: float = 0.5
+            delay: float = 0.05
     ):
         """
         Test the agent's performance over a number of episodes.
@@ -116,7 +116,7 @@ class FrozenLakeEnv:
             test_env = gym.make("FrozenLake-v1",
                                 render_mode="rgb_array",
                                 desc=map_desc,
-                                is_slippery=False)
+                                is_slippery=True)
         total_rewards = []
         total_steps = []
         old_epsilon = self.epsilon
@@ -149,9 +149,9 @@ class FrozenLakeEnv:
                     test_env.render()
                     time.sleep(delay)
                     if reward > 0:
-                        print("🎉 Reached the goal!")
+                        print("Reached the goal!")
                     elif terminated and reward == 0:
-                        print("💀 Fell into a hole!")
+                        print("Fell into a hole!")
 
             total_rewards.append(episode_reward)
             total_steps.append(step)
@@ -176,7 +176,7 @@ if __name__ == "__main__":
     initial_epsilon = 1.0
     epsilon_decay = 0.0001
     final_epsilon = 0.01
-    n_episodes = 100_000
+    n_episodes = 100_00
     discount_factor = 0.99   
     map_desc = generate_random_map(size=5)
 
